@@ -4,6 +4,11 @@ import { Container } from "@/components/container";
 import { profile } from "@/content/profile";
 import { siteConfig } from "@/lib/site-config";
 
+function copyrightYears(): string {
+  const currentYear = new Date().getFullYear();
+  return currentYear > profile.foundedYear ? `${profile.foundedYear}–${currentYear}` : `${currentYear}`;
+}
+
 export function SiteFooter({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   return (
     <footer className="mt-24 border-t border-border bg-bg-deep py-12">
@@ -42,8 +47,7 @@ export function SiteFooter({ locale, dictionary }: { locale: Locale; dictionary:
 
         <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 text-xs text-fg-muted md:flex-row md:justify-between">
           <p>
-            © <span className="tabular">{profile.foundedYear}</span>–
-            <span className="tabular">{new Date().getFullYear()}</span> {profile.name}.{" "}
+            © <span className="tabular">{copyrightYears()}</span> {profile.name}.{" "}
             {dictionary.footer.rights}
           </p>
           <Link href={localePath(locale, "contact")} className="hover:text-accent">

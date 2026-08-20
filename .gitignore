@@ -27,3 +27,7 @@ backend.hcl
 
 # Locally installed Claude skills (not part of the site)
 .claude/skills/
+
+# Build-generated site assets
+site/public/og-*.png
+site/public/cv-*.pdf

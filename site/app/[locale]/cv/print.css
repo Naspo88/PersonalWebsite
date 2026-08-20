@@ -1,0 +1,43 @@
+@media print {
+  :root {
+    color-scheme: light;
+  }
+
+  header[class*="sticky"],
+  footer,
+  .cv-hide-in-print {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+
+  .cv-document {
+    padding: 0 !important;
+    max-width: none;
+  }
+
+  .cv-document * {
+    color: #0f172a !important;
+    background: transparent !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  .cv-document a {
+    text-decoration: none;
+  }
+
+  .cv-document article,
+  .cv-document section,
+  .cv-document li {
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 14mm;
+  }
+}

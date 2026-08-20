@@ -45,7 +45,9 @@ resource "aws_cloudfront_response_headers_policy" "security" {
     content_security_policy {
       content_security_policy = join("; ", [
         "default-src 'self'",
-        "script-src 'self'",
+        # Next.js hydrates a static export through inline flight-data scripts,
+        # and a prerendered site cannot mint a per-request nonce.
+        "script-src 'self' 'unsafe-inline'",
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self' data:",
         "font-src 'self'",
