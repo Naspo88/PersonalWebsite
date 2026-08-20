@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PROD := infra/envs/prod
 SITE := site
 
-.PHONY: help install dev build lambda bootstrap init plan apply deploy invalidate fmt
+.PHONY: help install dev build lambda bootstrap init plan apply deploy invalidate fmt test
 
 help:
 	@grep -E '^[a-z-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
@@ -31,6 +31,10 @@ plan: lambda ## Show pending infrastructure changes
 
 apply: lambda ## Apply infrastructure changes
 	cd $(PROD) && terraform apply
+
+test: ## Run the lambda and CloudFront function test suites
+	cd lambda/contact && npm test
+	cd infra/modules/static-site/functions && node --test
 
 fmt: ## Format Terraform and lint the site
 	terraform fmt -recursive infra

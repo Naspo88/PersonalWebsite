@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "test": "node --test"
   },
   "devDependencies": {
     "@aws-sdk/client-sesv2": "^3.699.0",
