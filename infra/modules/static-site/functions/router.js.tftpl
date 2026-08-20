@@ -1,0 +1,60 @@
+var SUPPORTED_LOCALES = ${locales_json};
+var DEFAULT_LOCALE = "${default_locale}";
+
+function handler(event) {
+  var request = event.request;
+  var uri = request.uri;
+
+  if (uri === "" || uri === "/") {
+    return redirectTo("/" + negotiateLocale(request.headers) + "/");
+  }
+
+  if (uri.charAt(uri.length - 1) === "/") {
+    request.uri = uri + "index.html";
+    return request;
+  }
+
+  if (!hasFileExtension(uri)) {
+    return redirectTo(uri + "/");
+  }
+
+  return request;
+}
+
+function hasFileExtension(uri) {
+  var lastSlash = uri.lastIndexOf("/");
+  var lastDot = uri.lastIndexOf(".");
+  return lastDot > lastSlash;
+}
+
+function negotiateLocale(headers) {
+  var header = headers["accept-language"];
+  if (!header || !header.value) {
+    return DEFAULT_LOCALE;
+  }
+
+  var entries = header.value.split(",");
+  for (var i = 0; i < entries.length; i++) {
+    var tag = entries[i].split(";")[0].trim().toLowerCase();
+    var language = tag.split("-")[0];
+
+    for (var j = 0; j < SUPPORTED_LOCALES.length; j++) {
+      if (SUPPORTED_LOCALES[j] === language) {
+        return SUPPORTED_LOCALES[j];
+      }
+    }
+  }
+
+  return DEFAULT_LOCALE;
+}
+
+function redirectTo(location) {
+  return {
+    statusCode: 302,
+    statusDescription: "Found",
+    headers: {
+      location: { value: location },
+      "cache-control": { value: "no-cache" }
+    }
+  };
+}

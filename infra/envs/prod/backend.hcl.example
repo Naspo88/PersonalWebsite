@@ -1,0 +1,3 @@
+# Copy to backend.hcl and fill in the bucket from `terraform output` in infra/bootstrap.
+# Then: terraform init -backend-config=backend.hcl
+bucket = "rminghi-site-tfstate-000000000000"

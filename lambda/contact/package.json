@@ -1,0 +1,13 @@
+{
+  "name": "contact-lambda",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "./build.sh"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-sesv2": "^3.699.0",
+    "esbuild": "^0.28.2"
+  }
+}

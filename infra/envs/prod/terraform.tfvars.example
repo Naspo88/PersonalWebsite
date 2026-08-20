@@ -1,0 +1,4 @@
+aws_profile       = "default"
+domain_name       = "example.com"
+recipient_email   = "you@example.com"
+github_repository = "owner/personal-website"
